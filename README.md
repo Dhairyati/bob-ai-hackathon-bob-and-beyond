@@ -1,90 +1,378 @@
-# =============================================================================
-# HACKATHON SUBMISSION METADATA
-# =============================================================================
-# Instructions:
-#   - Fill in ALL required fields (marked with # REQUIRED)
-#   - Optional fields can be left as empty strings ""
-#   - Do NOT rename this file — the evaluation pipeline reads it by name
-#   - Use double quotes around all string values
-# =============================================================================
+# ✈️ Mission Readiness Copilot
 
-team:
-  name: "Bob and Beyond"
-  track: "AI"
-  lead:
-    name: "Dhairyati Pandya"
-    email: "23cs052@charusat.edu.in"
-  members:
-    - name: "Mitul Mistry"
-      email: "23cs045@charusat.edu.in"
-    - name: "Dhruv Bhagat"
-      email: "23cs005@charusat.edu.in"
-    - name: "Dhvani Ankola"
-      email: "23it003@charusat.edu.in"
+> **AI-powered predictive maintenance and mission-readiness intelligence for aircraft engines**
 
-submission:
-  title: "Mission Readiness Copilot"
+**Team:** Bob and Beyond
+**Track:** AI
 
-  problem_statement: >
-    Military organisations cannot reliably determine whether aircraft engines
-    are mission-ready. Maintenance runs on fixed calendar schedules regardless
-    of actual component condition, and sensor data that could predict failures
-    weeks in advance sits unanalysed — costing the US military an estimated
-    $90B/year and risking operational readiness when platforms fail unexpectedly.
+---
 
-  solution_summary: >
-    We built a predictive maintenance dashboard that ingests aircraft engine
-    sensor data (NASA C-MAPSS), predicts remaining useful life using a
-    6-model ensemble with test-time augmentation, classifies each engine's
-    mission readiness (READY / AT_RISK / NOT_READY) against a configurable
-    mission window, and generates an automated, ranked maintenance plan.
-    IBM Bob connects to the live system via MCP, letting engineers ask
-    natural-language questions about fleet readiness and get answers pulled
-    directly from real-time model predictions.
+## 🎯 Problem Statement
 
-  key_features:
-    - "6-model ensemble RUL prediction with test-time augmentation and confidence intervals (RMSE 13.04, R² 0.90)"
-    - "Mission-readiness classification (READY/AT_RISK/NOT_READY) against a configurable mission window, with fails-before-mission detection"
-    - "Automated, ranked maintenance plan with three-tier action recommendations (Immediate Overhaul / Priority Inspection / Schedule Inspection)"
-    - "Temporal attention-based explainability with per-engine natural-language readiness summaries"
-    - "Live IBM Bob MCP integration — Bob queries real-time fleet readiness, engine explanations, and maintenance plans via read-only tools"
+Military organisations cannot reliably determine whether aircraft engines are truly **mission-ready**.
 
-  tech_stack:
-    languages: ["Python", "JavaScript"]
-    frameworks: ["FastAPI", "React", "Vite"]
-    ibm_technologies: ["IBM Bob", "MCP (Model Context Protocol)"]
-    databases: ["MongoDB Atlas"]
-    other: ["TensorFlow/Keras", "D3.js", "NASA C-MAPSS dataset"]
+Traditional maintenance often relies on fixed calendar-based schedules rather than the actual condition of engine components. Meanwhile, valuable sensor data capable of predicting failures **weeks in advance** often remains underutilised.
 
-  what_we_are_most_proud_of: >
-    The IBM Bob MCP integration is genuinely live, not simulated — Bob calls
-    our real FastAPI backend and returns answers computed from our actual
-    6-model ensemble RUL predictions and mission-readiness logic, verified
-    end-to-end including graceful failure handling when the backend is offline.
-    Combined with the underlying ML pipeline's attention-based explainability
-    and confidence intervals, this goes beyond a name-dropped integration to
-    a working, inspectable Bob Copilot over a real predictive-maintenance system.
+This creates two major problems:
 
-  known_limitations: >
-    Service records (maintenance history, technician notes, prior overhauls)
-    are not yet ingested — readiness classification currently relies on
-    sensor-derived RUL only. Failure prediction is at the engine level, not
-    the component/subsystem level. Explanation text is deterministic
-    (template-based from model outputs), not LLM-generated — a deliberate
-    choice for reliability within the hackathon timeframe. Bob's MCP
-    integration is currently read-only: Bob can query live fleet data but
-    cannot take actions (e.g., scheduling maintenance) through the tool
-    interface yet.
+* 💰 **Unnecessary maintenance costs** from servicing healthy engines
+* ⚠️ **Operational readiness risks** when engines fail unexpectedly
 
-# =============================================================================
-# ARTIFACT LOCATIONS
-# These paths are relative to the repo root. Only change if you moved files.
-# =============================================================================
-artifacts:
-  source_code: "src/"
-  setup_guide: "docs/setup-guide.md"
-  architecture_doc: "docs/architecture.md"
-  demo_video: "demo/demo-video-link.txt"
-  live_demo: "demo/live-demo-url.txt"
-  screenshots: "demo/screenshots/"
-  presentation: "presentation/"
+Our goal is to transform raw aircraft sensor data into **actionable mission-readiness intelligence**.
+
+---
+
+## 💡 Our Solution
+
+**Mission Readiness Copilot** is an AI-powered predictive maintenance platform that analyses aircraft engine sensor data and determines whether each engine is ready for an upcoming mission.
+
+The platform:
+
+1. 📊 Ingests aircraft engine sensor data from the **NASA C-MAPSS dataset**
+2. 🧠 Predicts **Remaining Useful Life (RUL)** using a six-model ensemble
+3. 🎯 Applies **test-time augmentation** to improve prediction robustness
+4. 📈 Generates **confidence intervals** around RUL predictions
+5. 🛫 Classifies engines as:
+
+   * 🟢 **READY**
+   * 🟡 **AT_RISK**
+   * 🔴 **NOT_READY**
+6. ⏱️ Detects whether an engine is likely to fail **before the configured mission window**
+7. 🔧 Automatically generates a **ranked maintenance plan**
+8. 🔍 Provides **attention-based explainability** for individual predictions
+9. 🤖 Connects **IBM Bob** directly to the live system through **MCP**
+10. 💬 Allows engineers to query real-time fleet intelligence using natural language
+
+---
+
+## 🚀 Key Features
+
+### 1. 🧠 Ensemble RUL Prediction
+
+A six-model ensemble predicts the **Remaining Useful Life** of each engine.
+
+**Model performance:**
+
+* **RMSE:** 13.04
+* **R²:** 0.90
+* Test-time augmentation
+* Confidence intervals for prediction uncertainty
+
+---
+
+### 2. 🛫 Mission-Readiness Classification
+
+RUL predictions are translated into an operational readiness status based on a **configurable mission window**.
+
+| Status           | Meaning                                                          |
+| ---------------- | ---------------------------------------------------------------- |
+| 🟢 **READY**     | Engine has sufficient predicted remaining life for the mission   |
+| 🟡 **AT_RISK**   | Engine may complete the mission but has limited remaining margin |
+| 🔴 **NOT_READY** | Engine is predicted to fail before or within the mission window  |
+
+The system also performs **fails-before-mission detection**, allowing engineers to identify critical engines before deployment.
+
+---
+
+### 3. 🔧 Automated Maintenance Planning
+
+The system automatically ranks engines according to operational risk and recommends the appropriate maintenance action.
+
+| Priority    | Recommended Action      |
+| ----------- | ----------------------- |
+| 🔴 Critical | **Immediate Overhaul**  |
+| 🟠 High     | **Priority Inspection** |
+| 🟡 Medium   | **Schedule Inspection** |
+
+This converts predictive analytics into an actionable maintenance workflow.
+
+---
+
+### 4. 🔍 Explainable AI
+
+The platform uses **temporal attention-based explainability** to identify important portions of an engine's sensor history contributing to its prediction.
+
+Each engine also receives a **natural-language readiness summary**, making model outputs easier for maintenance personnel to interpret.
+
+---
+
+### 5. 🤖 IBM Bob + MCP Integration
+
+IBM Bob is connected directly to the live predictive-maintenance system using the **Model Context Protocol (MCP)**.
+
+Engineers can ask Bob questions such as:
+
+> *"Which engines are not ready for the next mission?"*
+
+> *"Why is Engine 42 at risk?"*
+
+> *"What maintenance actions are currently recommended?"*
+
+Bob retrieves information from the **live FastAPI backend**, including:
+
+* Fleet readiness
+* Engine-level predictions
+* Readiness explanations
+* Maintenance recommendations
+
+The integration is **read-only** and uses actual model predictions rather than simulated responses.
+
+---
+
+## 🏆 What We're Most Proud Of
+
+### A genuinely live IBM Bob integration
+
+Our IBM Bob integration is **not simulated or hard-coded**.
+
+Bob communicates with our actual FastAPI backend through MCP and retrieves results generated from our **live six-model ensemble and mission-readiness pipeline**.
+
+The complete flow works end-to-end:
+
+```text
+                    ┌──────────────────┐
+                    │    IBM Bob       │
+                    │  Natural Language│
+                    └────────┬─────────┘
+                             │
+                             │ MCP
+                             ▼
+                    ┌──────────────────┐
+                    │   FastAPI API    │
+                    └────────┬─────────┘
+                             │
+              ┌──────────────┴──────────────┐
+              ▼                             ▼
+      ┌────────────────┐          ┌──────────────────┐
+      │  RUL Ensemble  │          │ Readiness Engine │
+      │   6 Models     │          │ READY / AT RISK │
+      └────────┬───────┘          └────────┬─────────┘
+               │                           │
+               └─────────────┬─────────────┘
+                             ▼
+                    ┌──────────────────┐
+                    │ Maintenance Plan │
+                    └──────────────────┘
+```
+
+We also implemented **graceful failure handling** so the system responds appropriately when the backend is unavailable.
+
+This makes IBM Bob a functional **Copilot layer over a real predictive-maintenance system**, rather than simply a named integration.
+
+---
+
+## 🧰 Tech Stack
+
+### Languages
+
+* Python
+* JavaScript
+
+### Frontend
+
+* React
+* Vite
+* D3.js
+
+### Backend
+
+* FastAPI
+
+### Machine Learning
+
+* TensorFlow / Keras
+* Six-model ensemble
+* Temporal attention
+* Test-time augmentation
+* RUL prediction
+* Confidence estimation
+
+### AI / IBM
+
+* IBM Bob
+* Model Context Protocol (MCP)
+
+### Database
+
+* MongoDB Atlas
+
+### Dataset
+
+* NASA C-MAPSS
+
+---
+
+## 🏗️ System Architecture
+
+```text
+NASA C-MAPSS Sensor Data
+          │
+          ▼
+┌───────────────────────┐
+│ Data Preprocessing    │
+│ & Feature Engineering │
+└───────────┬───────────┘
+            │
+            ▼
+┌───────────────────────┐
+│ 6-Model RUL Ensemble  │
+│ + Test-Time Augment.  │
+└───────────┬───────────┘
+            │
+            ▼
+┌────────────────────────┐
+│ RUL + Confidence       │
+│ Interval + Attention   │
+└────────────┬───────────┘
+             │
+             ▼
+┌────────────────────────┐
+│ Mission Readiness      │
+│ Classification         │
+└────────────┬───────────┘
+             │
+       ┌─────┴─────┐
+       ▼           ▼
+   Readiness    Maintenance
+    Status         Plan
+       │           │
+       └─────┬─────┘
+             ▼
+       ┌────────────┐
+       │ FastAPI    │
+       │ Backend    │
+       └─────┬──────┘
+             │
+       ┌─────┴──────┐
+       ▼            ▼
+    React UI     IBM Bob
+                  via MCP
+```
+
+---
+
+## ⚠️ Known Limitations
+
+The current prototype has several limitations that we plan to address in future iterations.
+
+### Maintenance History
+
+Service records such as:
+
+* Previous maintenance
+* Technician notes
+* Component replacements
+* Prior overhauls
+
+are not currently integrated.
+
+Readiness classification therefore relies primarily on **sensor-derived RUL**.
+
+### Engine-Level Prediction
+
+Predictions are currently performed at the **engine level**, rather than at individual component or subsystem level.
+
+### Explanation Generation
+
+Readiness explanations are currently **deterministic and template-based**, using model outputs rather than LLM-generated explanations.
+
+This was a deliberate design decision to prioritise **reliability and consistency** within the hackathon timeframe.
+
+### Read-Only MCP Integration
+
+IBM Bob can currently **query** live fleet information but cannot execute operational actions through MCP.
+
+For example, Bob cannot yet:
+
+* Schedule maintenance
+* Assign technicians
+* Update maintenance records
+* Trigger an overhaul
+
+---
+
+## 🔮 Future Scope
+
+Potential next steps include:
+
+* Integrating historical maintenance and service records
+* Component-level failure prediction
+* Real-time sensor streaming
+* LLM-powered contextual explanations
+* Predictive maintenance scheduling
+* Role-based maintenance workflows
+* Action-enabled MCP tools
+* Integration with real-world fleet management systems
+* Continuous model retraining from new operational data
+
+---
+
+## 📂 Repository Structure
+
+```text
+├── src/                         # Source code
+│
+├── docs/
+│   ├── setup-guide.md           # Setup instructions
+│   └── architecture.md          # System architecture
+│
+├── demo/
+│   ├── demo-video-link.txt      # Demo video
+│   ├── live-demo-url.txt        # Live deployment
+│   └── screenshots/             # Application screenshots
+│
+├── presentation/               # Hackathon presentation
+│
+└── README.md
+```
+
+---
+
+## ⚙️ Setup
+
+Detailed setup instructions are available in:
+
+📖 **[`docs/setup-guide.md`](docs/setup-guide.md)**
+
+Architecture details:
+
+🏗️ **[`docs/architecture.md`](docs/architecture.md)**
+
+---
+
+## 🎥 Demo
+
+### Live Demo
+
+🔗 **[`Live Demo`](demo/live-demo-url.txt)**
+
+### Demo Video
+
+🎬 **[`Watch Demo`](demo/demo-video-link.txt)**
+
+### Screenshots
+
+📸 **[`View Screenshots`](demo/screenshots/)**
+
+---
+
+## 👥 Team — Bob and Beyond
+
+| Member               | Role        |
+| -------------------- | ----------- |
+| **Dhairyati Pandya** | Team Lead   |
+| **Mitul Mistry**     | Team Member |
+| **Dhruv Bhagat**     | Team Member |
+| **Dhvani Ankola**    | Team Member |
+
+---
+
+## 📌 Hackathon Submission
+
+**Project:** Mission Readiness Copilot
+**Team:** Bob and Beyond
+**Track:** AI
+
+> **From sensor data → prediction → readiness → maintenance action — with IBM Bob as the Copilot.** ✈️🤖
+
+---
