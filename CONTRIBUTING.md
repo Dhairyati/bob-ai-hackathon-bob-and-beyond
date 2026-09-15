@@ -89,12 +89,13 @@ yq '.' submission.yaml   # checks YAML is valid
 Once validation passes:
 
 1. Copy your repository URL:
-   `https://github.com/[your-org]/bob-ai-hackathon-[your-team-name]`
+   `https://github.com/[your-github-username]/bob-ai-hackathon-bob-and-beyond`
 
-2. Submit it via the **official entry form** at:
-   `[ORGANIZER: INSERT FORM URL HERE]`
+2. Submit it via the **official entry form**:
+   IBM Bob AI Hackathon – CHARUSAT Submission Form
+   (link circulated by TNP Cell, CHARUSAT — see the hackathon announcement email)
 
-3. **Deadline:** `[ORGANIZER: INSERT DEADLINE HERE]`
+3. **Deadline:** 15 September, form open **12:00 PM – 11:45 PM**
 
 > ⚠️ Submissions after the deadline will not be reviewed.
 > Changes after the deadline are not considered — make sure everything is complete before submitting.
@@ -113,5 +114,3 @@ Once validation passes:
 - [ ] GitHub Actions **✅ Validate Submission** is green
 - [ ] Repository is **Public**
 - [ ] Entry form submitted before the deadline
-
----
