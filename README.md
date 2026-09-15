@@ -1,121 +1,90 @@
-# 🚀 [Your Project Title Here]
+# =============================================================================
+# HACKATHON SUBMISSION METADATA
+# =============================================================================
+# Instructions:
+#   - Fill in ALL required fields (marked with # REQUIRED)
+#   - Optional fields can be left as empty strings ""
+#   - Do NOT rename this file — the evaluation pipeline reads it by name
+#   - Use double quotes around all string values
+# =============================================================================
 
-> ⚠️ **Replace everything in `[ ]` brackets with your actual content before submission.**
+team:
+  name: "Bob and Beyond"
+  track: "AI"
+  lead:
+    name: "Dhairyati Pandya"
+    email: "23cs052@charusat.edu.in"
+  members:
+    - name: "Mitul Mistry"
+      email: "23cs045@charusat.edu.in"
+    - name: "Dhruv Bhagat"
+      email: "23cs005@charusat.edu.in"
+    - name: "Dhvani Ankola"
+      email: "23it003@charusat.edu.in"
 
----
+submission:
+  title: "Mission Readiness Copilot"
 
-## 👥 Team
+  problem_statement: >
+    Military organisations cannot reliably determine whether aircraft engines
+    are mission-ready. Maintenance runs on fixed calendar schedules regardless
+    of actual component condition, and sensor data that could predict failures
+    weeks in advance sits unanalysed — costing the US military an estimated
+    $90B/year and risking operational readiness when platforms fail unexpectedly.
 
-| Field | Value |
-|---|---|
-| **Team Name** | [Your Team Name] |
-| **Track** | [AI / DevOps / Sustainability / Open] |
-| **Team Lead** | [Name] — [email@ibm.com] |
-| **Members** | [Name 1], [Name 2], [Name 3] |
+  solution_summary: >
+    We built a predictive maintenance dashboard that ingests aircraft engine
+    sensor data (NASA C-MAPSS), predicts remaining useful life using a
+    6-model ensemble with test-time augmentation, classifies each engine's
+    mission readiness (READY / AT_RISK / NOT_READY) against a configurable
+    mission window, and generates an automated, ranked maintenance plan.
+    IBM Bob connects to the live system via MCP, letting engineers ask
+    natural-language questions about fleet readiness and get answers pulled
+    directly from real-time model predictions.
 
----
+  key_features:
+    - "6-model ensemble RUL prediction with test-time augmentation and confidence intervals (RMSE 13.04, R² 0.90)"
+    - "Mission-readiness classification (READY/AT_RISK/NOT_READY) against a configurable mission window, with fails-before-mission detection"
+    - "Automated, ranked maintenance plan with three-tier action recommendations (Immediate Overhaul / Priority Inspection / Schedule Inspection)"
+    - "Temporal attention-based explainability with per-engine natural-language readiness summaries"
+    - "Live IBM Bob MCP integration — Bob queries real-time fleet readiness, engine explanations, and maintenance plans via read-only tools"
 
-## 🎯 Problem Statement
+  tech_stack:
+    languages: ["Python", "JavaScript"]
+    frameworks: ["FastAPI", "React", "Vite"]
+    ibm_technologies: ["IBM Bob", "MCP (Model Context Protocol)"]
+    databases: ["MongoDB Atlas"]
+    other: ["TensorFlow/Keras", "D3.js", "NASA C-MAPSS dataset"]
 
-> In 2–3 sentences: What problem does your project solve? Who experiences this problem?
+  what_we_are_most_proud_of: >
+    The IBM Bob MCP integration is genuinely live, not simulated — Bob calls
+    our real FastAPI backend and returns answers computed from our actual
+    6-model ensemble RUL predictions and mission-readiness logic, verified
+    end-to-end including graceful failure handling when the backend is offline.
+    Combined with the underlying ML pipeline's attention-based explainability
+    and confidence intervals, this goes beyond a name-dropped integration to
+    a working, inspectable Bob Copilot over a real predictive-maintenance system.
 
-[Describe the real-world problem your project addresses. Be specific about who the user is and what pain point they face.]
+  known_limitations: >
+    Service records (maintenance history, technician notes, prior overhauls)
+    are not yet ingested — readiness classification currently relies on
+    sensor-derived RUL only. Failure prediction is at the engine level, not
+    the component/subsystem level. Explanation text is deterministic
+    (template-based from model outputs), not LLM-generated — a deliberate
+    choice for reliability within the hackathon timeframe. Bob's MCP
+    integration is currently read-only: Bob can query live fleet data but
+    cannot take actions (e.g., scheduling maintenance) through the tool
+    interface yet.
 
----
-
-## 💡 Solution
-
-> In 2–3 sentences: What did you build? How does it solve the problem above?
-
-[Describe your solution clearly. Explain the core mechanism — what makes it work.]
-
----
-
-## ✨ Key Features
-
-- **Feature 1:** [Brief description — e.g., "Real-time anomaly detection using watsonx.ai"]
-- **Feature 2:** [Brief description]
-- **Feature 3:** [Brief description]
-- **Feature 4:** [Optional]
-- **Feature 5:** [Optional]
-
----
-
-## 🛠️ Tech Stack
-
-| Category | Technologies |
-|---|---|
-| **Languages** | [e.g., Python, TypeScript] |
-| **Frameworks** | [e.g., FastAPI, React] |
-| **IBM Technologies** | [e.g., watsonx.ai, IBM Bob, IBM Cloud] |
-| **Databases** | [e.g., PostgreSQL, Redis] |
-| **Other** | [e.g., Docker, GitHub Actions] |
-
----
-
-## 📁 Repository Structure
-
-```
-├── src/                  # All source code
-├── docs/                 # Written documentation
-│   ├── problem-statement.md
-│   ├── solution-overview.md
-│   ├── architecture.md
-│   └── setup-guide.md
-├── demo/                 # Demo artifacts
-│   ├── screenshots/      # App screenshots
-│   └── demo-video-link.txt  # Link to demo video
-├── presentation/         # Slide deck
-└── submission.yaml       # Structured submission metadata
-```
-
----
-
-## ⚡ How to Run
-
-> **Copy these exact steps from your [`docs/setup-guide.md`](docs/setup-guide.md)**
-
-```bash
-# 1. Clone the repo
-git clone https://github.com/[your-repo].git
-cd [your-repo]
-
-# 2. Install dependencies
-[your install command here]
-
-# 3. Configure environment
-cp .env.example .env
-# Edit .env with your values
-
-# 4. Run the project
-[your run command here]
-```
-
----
-
-## 🖥️ Demo
-
-| Artifact | Link |
-|---|---|
-| 📹 Demo Video | [See demo/demo-video-link.txt](demo/demo-video-link.txt) |
-| 🌐 Live Demo | [See demo/live-demo-url.txt](demo/live-demo-url.txt) |
-| 🖼️ Screenshots | [See demo/screenshots/](demo/screenshots/) |
-| 📊 Presentation | [See presentation/slides.pdf](presentation/) |
-
----
-
-## ⚠️ Known Limitations
-
-> Be honest — judges appreciate transparency over overclaiming.
-
-- [Limitation 1: e.g., "Authentication is mocked — not production-ready"]
-- [Limitation 2: e.g., "Only tested on Chrome"]
-- [Limitation 3: e.g., "Feature X is scaffolded but not fully implemented"]
-
----
-
-## 🏅 What We're Most Proud Of
-
-[Tell the judges what part of your submission is strongest and worth paying close attention to.]
-
----
+# =============================================================================
+# ARTIFACT LOCATIONS
+# These paths are relative to the repo root. Only change if you moved files.
+# =============================================================================
+artifacts:
+  source_code: "src/"
+  setup_guide: "docs/setup-guide.md"
+  architecture_doc: "docs/architecture.md"
+  demo_video: "demo/demo-video-link.txt"
+  live_demo: "demo/live-demo-url.txt"
+  screenshots: "demo/screenshots/"
+  presentation: "presentation/"
